@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="WEB-INF/jackson-annotations-2.7.0.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/jackson-databind-2.7.0.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/jackson-jaxrs-1.9.13.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/jersey-multipart.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/jackson-jaxrs.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/com.fasterxml.jackson.core.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/jackson-datatype-joda-2.0.4.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/javax.ws.rs-api-2.0.1.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/jackson-jaxrs-json-provider-2.0.4.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/jersey-client-1.18.1.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

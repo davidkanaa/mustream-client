@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension-point id="com.mustream.integration.services" name="consumers" schema="schema/com.mustream.integration.services.exsd"/>
+
+   <extension
+         id="product"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="org.eclipse.e4.ui.workbench.swt.E4Application"
+            name="mustream">
+         <property
+               name="appName"
+               value="mustream">
+         </property>
+      </product>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            class="com.mustream.app.rcp.trimbar.PartTry"
+            id="com.mustream.app.rcp.trimbar.PartTry"
+            name="New ViewPart">
+      </view>
+      <view
+            class="com.mustream.app.rcp.trimbar.paerr"
+            id="com.mustream.app.rcp.trimbar.paerr"
+            name="New ViewPart">
+      </view>
+      <view
+            class="com.mustream.app.rcp.trimbar.view"
+            id="com.mustream.app.rcp.trimbar.view"
+            name="New ViewPart">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            class="com.mustream.app.rcp.trimbar.p"
+            id="com.mustream.app.rcp.trimbar.p"
+            name="New Perspective">
+      </perspective>
+      <perspective
+            class="com.mustream.app.rcp.trimbar.peer"
+            id="com.mustream.app.rcp.trimbar.peer"
+            name="New Perspective">
+      </perspective>
+   </extension>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="com.mustream.app.rcp.trimbar.m"
+            id="com.mustream.app.rcp.trimbar.m"
+            name="New MultiPageEditorPart">
+      </editor>
+      <editor
+            class="com.mustream.app.rcp.trimbar.g"
+            id="com.mustream.app.rcp.trimbar.g"
+            name="New EditorPart">
+      </editor>
+   </extension>
+
+</plugin>

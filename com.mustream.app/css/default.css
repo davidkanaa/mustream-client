@@ -1,0 +1,24 @@
+.MTrimBar {
+    background-color:  white #0000ff 50%;
+	color: white;
+	font: Verdana 8px;
+}
+
+Button {
+background-color:  white #0000ff 50% ;
+	
+}
+
+Label {
+font: Verdana 8px;
+  color: black;
+}
+.MPartSashContainer{
+background-color: #0000ff #c1d5ef; 
+
+}
+
+.MPart{
+background-color:   #cec8cb  ;
+
+}

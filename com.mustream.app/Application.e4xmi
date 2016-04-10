@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="ASCII"?>
+<application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:advanced="http://www.eclipse.org/ui/2010/UIModel/application/ui/advanced" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_PI-E4OWTEeWCXMZoLdERJg" elementId="com.mustream.app.application">
+  <children xsi:type="basic:TrimmedWindow" xmi:id="_IyKqsOYeEeWK84nVKJkNbw" elementId="com.mustream.app.trimmedwindow.musicstreaming" label="Music Streaming" iconURI="platform:/plugin/com.mustream.app/icons/music.png" x="300" y="50" width="800" height="650">
+    <children xsi:type="advanced:PerspectiveStack" xmi:id="_RgZmIOYeEeWK84nVKJkNbw" elementId="com.mustream.app.perspectivestack.0">
+      <children xsi:type="advanced:Perspective" xmi:id="_R8N_cOYeEeWK84nVKJkNbw" elementId="com.mustream.app.perspective.perspective">
+        <children xsi:type="basic:PartSashContainer" xmi:id="_beAWYOidEeWawvLNWoVpMw" elementId="com.mustream.app.partsashcontainer.0" containerData="6000" accessibilityPhrase="partsash0" horizontal="true">
+          <children xsi:type="basic:Part" xmi:id="_A-86IOicEeWawvLNWoVpMw" elementId="com.mustream.app.rcp.part.left" contributionURI="bundleclass://com.mustream.app/com.mustream.app.rcp.parts.LeftPart"/>
+          <children xsi:type="basic:PartSashContainer" xmi:id="_26dEcOidEeWawvLNWoVpMw" elementId="com.mustream.app.partsashcontainer.1" horizontal="true">
+            <children xsi:type="basic:Part" xmi:id="_hSw1MOibEeWawvLNWoVpMw" elementId="com.mustream.app.rcp.part.searchresult" contributionURI="bundleclass://com.mustream.app/com.mustream.app.rcp.parts.SearchResultPart" label=""/>
+            <children xsi:type="basic:Part" xmi:id="_iJkhYOibEeWawvLNWoVpMw" elementId="com.mustream.app.rcp.part.queue" contributionURI="bundleclass://com.mustream.app/com.mustream.app.rcp.parts.QueuePart" label=""/>
+            <children xsi:type="basic:Part" xmi:id="_qf71UO3_EeWSPMfw3eo1_g" elementId="com.mustream.app.rcp.part.login" contributionURI="bundleclass://com.mustream.app/com.mustream.app.rcp.parts.LoginPart"/>
+            <children xsi:type="basic:Part" xmi:id="_Gf4A8O0OEeWzGbcKnCaNlQ" elementId="com.mustream.app.rcp.part.playlist" contributionURI="bundleclass://com.mustream.app/com.mustream.app.rcp.parts.PlaylistPart"/>
+            <children xsi:type="basic:Part" xmi:id="_75FdIOoHEeWkRf7ERs1bEw" elementId="com.mustream.app.rcp.part.play" contributionURI="bundleclass://com.mustream.app/com.mustream.app.rcp.parts.PlayPart"/>
+          </children>
+        </children>
+      </children>
+    </children>
+    <mainMenu xmi:id="_KaBnEPwcEeWrZrCRqF6bJQ" elementId="com.mustream.app.menu.0">
+      <children xsi:type="menu:Menu" xmi:id="_eOhFQPwcEeWrZrCRqF6bJQ" elementId="com.mustream.app.menu.menu" label="Menu">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_pzCRUPwcEeWrZrCRqF6bJQ" elementId="com.mustream.app.handledmenuitem.1"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_r3cZEPwcEeWrZrCRqF6bJQ" elementId="com.mustream.app.handledmenuitem.loadservices" label="Load services" iconURI="platform:/plugin/com.mustream.app/icons/load.png" command="_Yv_H8O3iEeWSPMfw3eo1_g"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_sSq8gPwcEeWrZrCRqF6bJQ" elementId="com.mustream.app.handledmenuitem.exit" label="Exit" iconURI="platform:/plugin/com.mustream.app/icons/exit.png" command="_8AoeUOeQEeWSXL8DS5SoeA"/>
+      </children>
+      <children xsi:type="menu:Menu" xmi:id="_z8GzEPwcEeWrZrCRqF6bJQ" elementId="com.mustream.app.menu.media" label="Media">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_Z2CMoPwdEeWrZrCRqF6bJQ" elementId="com.mustream.app.handledmenuitem.play" label="Play" iconURI="platform:/plugin/com.mustream.app/icons/play.png" command="_SZgg4OvbEeWdVPW3373E-A"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_aV5_gPwdEeWrZrCRqF6bJQ" elementId="com.mustream.app.handledmenuitem.previous" label="Previous" iconURI="platform:/plugin/com.mustream.app/icons/previous.png" command="__HA1IOvdEeWdVPW3373E-A"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_awseEPwdEeWrZrCRqF6bJQ" elementId="com.mustream.app.handledmenuitem.next" label="Next" iconURI="platform:/plugin/com.mustream.app/icons/next.png" command="_rheN0O3eEeWSPMfw3eo1_g"/>
+      </children>
+      <children xsi:type="menu:Menu" xmi:id="_1bXmYPwcEeWrZrCRqF6bJQ" elementId="com.mustream.app.menu.help" label="Help">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_TTN_4PwdEeWrZrCRqF6bJQ" elementId="com.mustream.app.handledmenuitem.about" label="About" command="_iC9QIOioEeWawvLNWoVpMw"/>
+      </children>
+    </mainMenu>
+    <trimBars xmi:id="_S6cnUOeUEeWSXL8DS5SoeA" elementId="com.mustream.app.trimbar.1" side="Bottom">
+      <children xsi:type="menu:ToolBar" xmi:id="_TyoMgOeUEeWSXL8DS5SoeA" elementId="com.mustream.app.toolbar.1">
+        <children xsi:type="menu:DirectToolItem" xmi:id="_RzQcIOecEeWSXL8DS5SoeA" elementId="com.mustream.app.directtoolitem.0" iconURI="platform:/plugin/com.mustream.app/icons/previous.png"/>
+        <children xsi:type="menu:DirectToolItem" xmi:id="_UPX5QOecEeWSXL8DS5SoeA" elementId="com.mustream.app.directtoolitem.1" iconURI="platform:/plugin/com.mustream.app/icons/play.png" contributionURI="bundleclass://com.mustream.app/com.mustream.app.rcp.trimbar.PlayDirectTool"/>
+        <children xsi:type="menu:DirectToolItem" xmi:id="_U68l0OecEeWSXL8DS5SoeA" elementId="com.mustream.app.directtoolitem.2" iconURI="platform:/plugin/com.mustream.app/icons/next.png"/>
+        <children xsi:type="menu:ToolControl" xmi:id="_THPTAOiNEeWawvLNWoVpMw" elementId="com.mustream.app.toolcontrol.1" contributionURI="bundleclass://com.mustream.app/com.mustream.app.rcp.trimbar.BottomTrimbar"/>
+      </children>
+    </trimBars>
+  </children>
+  <handlers xmi:id="_MsFvAOeREeWSXL8DS5SoeA" elementId="com.mustream.app.handler.quit" contributionURI="bundleclass://com.mustream.app/com.mustream.app.rcp.handlers.QuitHandler" command="_8AoeUOeQEeWSXL8DS5SoeA"/>
+  <handlers xmi:id="_YxYgcOiPEeWawvLNWoVpMw" elementId="com.mustream.app.handler.open" contributionURI="bundleclass://com.mustream.app/com.mustream.app.rcp.handlers.OpenHandler" command="_TXEz4OiPEeWawvLNWoVpMw"/>
+  <handlers xmi:id="__8AjgOioEeWawvLNWoVpMw" elementId="com.mustream.app.handler.0" contributionURI="bundleclass://com.mustream.app/com.mustream.app.rcp.handlers.AboutHandler" command="_iC9QIOioEeWawvLNWoVpMw"/>
+  <handlers xmi:id="_Ep7D4OlIEeWmAb4L_Fbydg" elementId="com.mustream.app.handler.2" contributionURI="bundleclass://com.mustream.app/com.mustream.app.rcp.handlers.PreferencesHandler" command="__C0cAOlIEeWmAb4L_Fbydg"/>
+  <handlers xmi:id="_m_VAAOoHEeWkRf7ERs1bEw" elementId="com.mustream.app.handler.3" contributionURI="bundleclass://com.mustream.app/com.mustream.app.rcp.handlers.RepeatHandler" command="_xV2kYOoGEeWkRf7ERs1bEw"/>
+  <handlers xmi:id="_VYjE4OvbEeWdVPW3373E-A" elementId="com.mustream.app.handler.4" contributionURI="bundleclass://com.mustream.app/com.mustream.app.rcp.handlers.PlayHandler" command="_SZgg4OvbEeWdVPW3373E-A"/>
+  <handlers xmi:id="_BoGR0OveEeWdVPW3373E-A" elementId="com.mustream.app.handler.5" contributionURI="bundleclass://com.mustream.app/com.mustream.app.rcp.handlers.PreviousHandler" command="__HA1IOvdEeWdVPW3373E-A"/>
+  <handlers xmi:id="_27faEO3eEeWSPMfw3eo1_g" elementId="com.mustream.app.handler.6" contributionURI="bundleclass://com.mustream.app/com.mustream.app.rcp.handlers.NextHandler" command="_rheN0O3eEeWSPMfw3eo1_g"/>
+  <handlers xmi:id="_5MoWQO3eEeWSPMfw3eo1_g" elementId="com.mustream.app.handler.7" contributionURI="bundleclass://com.mustream.app/com.mustream.app.rcp.handlers.ShuffleHandler" command="_oVFxYO3eEeWSPMfw3eo1_g"/>
+  <handlers xmi:id="_cxhDsO3iEeWSPMfw3eo1_g" elementId="com.mustream.app.handler.8" contributionURI="bundleclass://com.mustream.app/com.mustream.app.register.EvaluateIntegrationPointHandler" command="_Yv_H8O3iEeWSPMfw3eo1_g"/>
+  <handlers xmi:id="_lV4dYO4iEeWqvpYleDlX0g" elementId="com.mustream.app.handler.1" contributionURI="bundleclass://com.mustream.app/com.mustream.app.rcp.handlers.AccountHandler" command="_ioCXEO4iEeWqvpYleDlX0g"/>
+  <commands xmi:id="_8AoeUOeQEeWSXL8DS5SoeA" elementId="com.mustream.app.quitcommand" commandName="quitCommand"/>
+  <commands xmi:id="_TXEz4OiPEeWawvLNWoVpMw" elementId="com.mustream.app.command.opencommand" commandName="openCommand"/>
+  <commands xmi:id="_iC9QIOioEeWawvLNWoVpMw" elementId="com.mustream.app.command.aboutcommand" commandName="aboutCommand"/>
+  <commands xmi:id="__C0cAOlIEeWmAb4L_Fbydg" elementId="com.mustream.app.command.preferencescommand" commandName="preferencesCommand"/>
+  <commands xmi:id="_xV2kYOoGEeWkRf7ERs1bEw" elementId="com.mustream.app.command.repeatCommand" commandName="repeatCommand"/>
+  <commands xmi:id="_SZgg4OvbEeWdVPW3373E-A" elementId="com.mustream.app.command.playcommand" commandName="playCommand"/>
+  <commands xmi:id="__HA1IOvdEeWdVPW3373E-A" elementId="com.mustream.app.command.previouscommande" commandName="previousCommande"/>
+  <commands xmi:id="_oVFxYO3eEeWSPMfw3eo1_g" elementId="com.mustream.app.command.shufflecommand" commandName="shuffleCommand"/>
+  <commands xmi:id="_rheN0O3eEeWSPMfw3eo1_g" elementId="com.mustream.app.command.nextcommand" commandName="nextCommand"/>
+  <commands xmi:id="_Yv_H8O3iEeWSPMfw3eo1_g" elementId="com.mustream.app.command.loadservicecommand" commandName="loadserviceCommand"/>
+  <commands xmi:id="_ioCXEO4iEeWqvpYleDlX0g" elementId="com.mustream.app.command.accountcommand" commandName="accountCommand"/>
+  <addons xmi:id="_PI-E4eWTEeWCXMZoLdERJg" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
+  <addons xmi:id="_PI-E4uWTEeWCXMZoLdERJg" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
+  <addons xmi:id="_PI-E4-WTEeWCXMZoLdERJg" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>
+  <addons xmi:id="_PI-E5OWTEeWCXMZoLdERJg" elementId="org.eclipse.e4.ui.workbench.commands.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.CommandProcessingAddon"/>
+  <addons xmi:id="_PI-E5eWTEeWCXMZoLdERJg" elementId="org.eclipse.e4.ui.workbench.contexts.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.ContextProcessingAddon"/>
+  <addons xmi:id="_PI-E5uWTEeWCXMZoLdERJg" elementId="org.eclipse.e4.ui.workbench.bindings.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench.swt/org.eclipse.e4.ui.workbench.swt.util.BindingProcessingAddon"/>
+  <addons xmi:id="_PI-E5-WTEeWCXMZoLdERJg" elementId="org.eclipse.e4.ui.workbench.handler.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.HandlerProcessingAddon"/>
+</application:Application>
