@@ -38,13 +38,14 @@ public class Searcher {
      * @param terms Terms of the search.
      */
     public void search(String terms) {
-
+//TODO when user server
         List<Track> results = new ArrayList<Track>();
         try {
         	results = MustreamApi.getInstance_().search(terms);
         } catch (ApiException e){
         	//TODO
         }
+        //TODO when using plugins
 //        for (ServiceConsumer consumer:
 //                ServiceRegister.getInstance_().getServiceConsumers()) {
 //            try {

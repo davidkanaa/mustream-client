@@ -25,15 +25,12 @@ import com.mustream.app.models.entities.Track;
 **/
 
 public class PlaylistManager {
-	
-	private Map<String, Playlist> playlists = new HashMap<String, Playlist>();
 	private static PlaylistManager instance_;
+	private Map<String, Playlist> playlists = new HashMap<String, Playlist>();
 	private CurrentUser user = CurrentUser.getInstance();
 	private boolean testing = true; //TODO only for development
 	
-	//TODO private because singleton
 	protected PlaylistManager() {
-	//TODO UNCOMMENT
 		loadPlaylists();
     }
 	
@@ -53,17 +50,7 @@ public class PlaylistManager {
  * Loads playlist database from txt file
  */	
    private void loadPlaylists() {	   
-//	   try{
-//		   List<Playlist> tempUserPlaylists = 
-//				   MustreamApi.getInstance_().getAllPlaylists(user.getAccessToken(), 
-//						   user.getId());
-//		   for (Playlist pl : tempUserPlaylists){
-//			   playlists.put(pl.getName(), pl);
-//		   }
-//		   
-//	   } catch(ApiException e) {
-//		   //TODO
-//	   }	   
+   
 	   if (testing == true) {
 		   Playlist testPlaylist = new Playlist("Test playlist");
 		   List<Track> tempTracks = new ArrayList<Track>();
@@ -75,8 +62,19 @@ public class PlaylistManager {
 		   fakeTrack.setAlbum("MuStream tracks");
 		   tempTracks.add(fakeTrack);	   
 		   testPlaylist.setTracks(tempTracks);
-		   playlists.put("Test playlist", testPlaylist);
-		   
+		   playlists.put("Test playlist", testPlaylist); 
+	   }
+	   else {
+		   try{
+			   List<Playlist> tempUserPlaylists = 
+					   MustreamApi.getInstance_().getAllPlaylists(user.getAccessToken(), 
+							   user.getId());
+			   for (Playlist pl : tempUserPlaylists){
+				   playlists.put(pl.getName(), pl);
+			   }
+		   } catch(ApiException e) {
+			   //TODO
+		   }	  
 	   }
    }
    
@@ -99,8 +97,7 @@ public class PlaylistManager {
 				playlists.remove(playlist);
 //			} catch (ApiException e) {
 //				//TODO
-//			}
-			
+//			}	
 		}
 			
 		
@@ -137,12 +134,13 @@ public class PlaylistManager {
 			//TODO
 		}
 		else {
-			try {
-			Playlist temp = MustreamApi.getInstance_().createPlaylist(user.getAccessToken(), user.getId(), name); //new Playlist(name);
+//			try {
+//			Playlist temp = MustreamApi.getInstance_().createPlaylist(user.getAccessToken(), user.getId(), name); //new Playlist(name);
+			Playlist temp = new Playlist(name);
 			playlists.put(name, temp);
-			} catch(ApiException e) {
-				//TODO
-			}	
+//			} catch(ApiException e) {
+//				//TODO
+//			}	
 		}
 	}
     /**
@@ -165,7 +163,7 @@ public class PlaylistManager {
 			if(playlistExists(playlist)) {			
 				Playlist tempPlaylist = playlists.get(playlist);
 				//Modify the server version of the playlist
-				List<String> uris = getUris(tracks);
+//				List<String> uris = getUris(tracks);
 				
 //				try{
 //					MustreamApi.getInstance_().addTrackstoPlaylist(user.getAccessToken(), user.getId(), tempPlaylist.getId(), uris, uris);
@@ -209,7 +207,7 @@ public class PlaylistManager {
 		if(playlistExists(playlist)) {
 		//Modify the server version of the playlist
 		Playlist tempPlaylist = playlists.get(playlist);
-		List<String> uris = getUris(tracks);
+//		List<String> uris = getUris(tracks);
 		//TODO when server is working
 //		try{
 //			MustreamApi.getInstance_().removeTracksfromPlaylist(user.getAccessToken(), user.getId(), tempPlaylist.getId(), uris, uris);

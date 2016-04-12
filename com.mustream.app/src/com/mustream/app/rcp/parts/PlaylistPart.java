@@ -23,6 +23,7 @@ import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
+import org.eclipse.swt.widgets.Text;
 
 import com.mustream.app.models.entities.Item;
 import com.mustream.app.models.entities.Playlist;
@@ -64,21 +65,31 @@ public class PlaylistPart {
 
 		Label lblNewLabel_1 = new Label(parent, SWT.NONE);
 		lblNewLabel_1.setText("PLAYLIST TRACKS");
-
+		
+		// create this griddata to fix the width of the button in the part
+				GridData gd = new GridData();
+				gd.widthHint = 150;
+				gd.verticalIndent= 200 ;
+				
+		//Create a text entry for users to enter to playlist name
+//		Text newPlaylistName = new Text(parent, SWT.BORDER);
+//		newPlaylistName.setMessage("New playlist name...");
+		//newPlaylistName.setLayoutData(gd);
+		
 		// create button to create playlist in playlist table
 		Button createplaylistBtn = new Button(parent, SWT.NONE);
 		createplaylistBtn.setText("Create playlist");
 		
-		// create this griddata to fix the width of the button in the part
-		GridData gd = new GridData();
-		gd.widthHint = 150;
-		gd.verticalIndent=200 ;
+		
 		createplaylistBtn.setLayoutData(gd);
 		createplaylistBtn.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				popupDialogPlaylist();
-				updatePlaylistTable();
+				//TODO UNCOMMENT ONCE ISSUE WITH POP-UP FIXED
+				//popupDialogPlaylist();
+//				String name = newPlaylistName.getText();
+//				PlaylistManager.getInstance_().createPlaylist(name);
+//				updatePlaylistTable();
 			}
 
 		});
@@ -202,9 +213,9 @@ public class PlaylistPart {
 //		System.out.print(" display playlist ");
 //	}
 	
-	private void updatePlaylistTable() {
-		playlistTable.removeAll();
+	public void updatePlaylistTable() {
 		if (!PlaylistManager.getInstance_().noPlaylists()){
+			playlistTable.removeAll();
 			for (Playlist playlist : PlaylistManager.getInstance_().getPlaylists()) {
 				TableItem item = new TableItem(playlistTable, 0);
 				item.setText(0, playlist.getName());
@@ -303,6 +314,8 @@ public class PlaylistPart {
 			}
 		});
 
+		//TODO Problem with pop-up. 
+		/*
 		MenuItem createPlaylist = new MenuItem(popupMenu, SWT.NONE);
 		createPlaylist.setText("Create playlist");
 		createPlaylist.addSelectionListener(new SelectionListener() {
@@ -317,7 +330,7 @@ public class PlaylistPart {
 			public void widgetDefaultSelected(SelectionEvent e) {
 				widgetSelected(e);
 			}
-		});
+		}); */
 
 		MenuItem renamePlaylist = new MenuItem(popupMenu, SWT.NONE);
 		renamePlaylist.setText("Rename playlist");

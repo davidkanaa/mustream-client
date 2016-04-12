@@ -39,15 +39,19 @@ import org.eclipse.swt.widgets.Text;
  *         the song you selected from your search
  */
 public class SearchResultPart {
+	private static SearchResultPart instance_;
 	private Searcher searcher = null;
 	private Table searchTable;
 	private String songString;
 	private Text searchText;
-	//private PlaylistManager playlistManager = null;//TODO testing
 
+	public static SearchResultPart getInstance_(){
+		if (instance_==null)
+			new SearchResultPart();
+		return instance_;
+	}
 	@PostConstruct
 	public void createControls(Composite parent) {
-		//playlistManager = PlaylistManager.getInstance_(); //TODO testing
 		searcher = Searcher.getInstance_();
 		// creation of the layout parent with 3 widget in each line
 		parent.setLayout(new GridLayout(3, false));
@@ -63,6 +67,8 @@ public class SearchResultPart {
 		Button searchButton = new Button(parent, SWT.PUSH);
 		searchButton.setText("Search");
 		
+		populateTable();
+		
 		// position of the button search
 		searchButton.setLayoutData(new GridData(SWT.LEAD, SWT.FILL, false, false, 1, 1));
 		searchButton.addSelectionListener(new SelectionAdapter() {
@@ -72,7 +78,6 @@ public class SearchResultPart {
 					return;
 				}
 				searcher.search(terms);
-
 				getSearchTable().removeAll();
 				for (Item result : searcher.getResults()) {
 					TableItem item = new TableItem(getSearchTable(), 0);
@@ -87,39 +92,48 @@ public class SearchResultPart {
 			}
 		});
 
+		/* TODO
+		 * Text newPlaylistName = new Text(parent, SWT.BORDER);
+		 
+		newPlaylistName.setMessage("New playlist name...");
+		newPlaylistName.setLayoutData(new GridData(SWT.LEAD, SWT.FILL, false, false));
+		
 		Button button2 = new Button(parent, SWT.PUSH);
-		button2.setText("Add Track to Playlist");
+		button2.setText("Create New Playlist");
 		button2.setLayoutData(new GridData(SWT.RIGHT, SWT.FILL, false, false));
 		button2.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				List<Track> selectedTracks = new ArrayList<Track>();
-				List<Track> results = searcher.getResults();
-				for (int i : searchTable.getSelectionIndices())
-				{
-					Track tmp = results.get(i);
-					selectedTracks.add(tmp);
-				}
-				//TODO testing
-				Menu playlistMenu = new Menu(button2);
-				for (Playlist playlist : PlaylistManager.getInstance_().getPlaylists()){
-					MenuItem item = new MenuItem(playlistMenu, SWT.NONE);
-					item.setText(playlist.getName());
-					item.addSelectionListener(new SelectionListener() {
-						public void widgetSelected(SelectionEvent e) {
-							PlaylistManager.getInstance_().addTracks(selectedTracks, playlist.getName());
-						}
-						public void widgetDefaultSelected(SelectionEvent e) {
-							widgetSelected(e);
-						}
-					});
-				}
+				String name = newPlaylistName.getText();
+				PlaylistManager.getInstance_().createPlaylist(name);
+				PlaylistPart.getInstance_().updatePlaylistTable();
+				//TODO Code from Add to playlist
+//				List<Track> selectedTracks = new ArrayList<Track>();
+//				List<Track> results = searcher.getResults();
+//				for (int i : searchTable.getSelectionIndices())
+//				{
+//					Track tmp = results.get(i);
+//					selectedTracks.add(tmp);
+//				}
+//				Menu playlistMenu = new Menu(button2);
+//				for (Playlist playlist : PlaylistManager.getInstance_().getPlaylists()){
+//					MenuItem item = new MenuItem(playlistMenu, SWT.NONE);
+//					item.setText(playlist.getName());
+//					item.addSelectionListener(new SelectionListener() {
+//						public void widgetSelected(SelectionEvent e) {
+//							PlaylistManager.getInstance_().addTracks(selectedTracks, playlist.getName());
+//						}
+//						public void widgetDefaultSelected(SelectionEvent e) {
+//							widgetSelected(e);
+//						}
+//					});
+//				}
 			}		
 //					public void widgetDefaultSelected(SelectionEvent e) {
 //						widgetSelected(e);
 //					}
 //			}
 		});
-		
+		*/	
 		
 		this.searchTable = new Table(parent, SWT.BORDER | SWT.FULL_SELECTION | SWT.MULTI);
 		this.searchTable.setHeaderVisible(true);
@@ -151,6 +165,20 @@ public class SearchResultPart {
 		return searchTable;
 	}
 
+	public void populateTable(){
+		if (!searcher.getResults().isEmpty()) {
+			for (Item result : searcher.getResults()) {
+				TableItem item = new TableItem(getSearchTable(), 0);
+				item.setText(0, ((Track) result).getName());
+				item.setText(1, ((Track) result).getAlbum());
+				item.setText(2, ((Track) result).getArtists().toString());
+			}
+			for (int i = 0; i < searchTable.getColumnCount(); i++) {
+				searchTable.getColumn(i).pack();
+			}
+			getSearchTable().layout(true);
+		}
+	}
 	public Text getSearchText() {
 		return searchText;
 	}
@@ -180,7 +208,8 @@ public class SearchResultPart {
 
 		MenuItem addToQueue = new MenuItem(popupMenu, SWT.NONE);
 		addToQueue.setText("Add to queue");
-
+		
+/*
 		MenuItem createNewPlaylist = new MenuItem(newMenu, SWT.NONE);
 		createNewPlaylist.setText("Create new playlist");
 		
@@ -189,14 +218,12 @@ public class SearchResultPart {
 		    	  //PlaylistPart.getInstance_().popupDialogPlaylist(); //TODO
 		      }
 		    });
+		Menu newMenu_2 = new Menu(popupMenu);
+		showListPlaylist.setMenu(newMenu_2);
 
-
-//		Menu newMenu_2 = new Menu(popupMenu);
-//		showListPlaylist.setMenu(newMenu_2);
-//
-//		MenuItem newM = new MenuItem(newMenu_2, SWT.NONE);
-//		newM.setText("new");
-
+		MenuItem newM = new MenuItem(newMenu_2, SWT.NONE);
+		newM.setText("new");
+*/
 		searchTable.setMenu(popupMenu);
 	}
 }
