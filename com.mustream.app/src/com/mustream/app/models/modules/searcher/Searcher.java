@@ -3,6 +3,7 @@ package com.mustream.app.models.modules.searcher;
 import java.util.ArrayList;
 import java.util.List;
 import com.mustream.app.client.ApiException;
+import com.mustream.app.client.api.MustreamApi;
 import com.mustream.app.models.entities.Track;
 import com.mustream.app.register.ServiceRegister;
 import com.mustream.app.services.ServiceConsumer;
@@ -19,10 +20,17 @@ import com.mustream.app.services.ServiceConsumer;
  */
 public class Searcher {
 
+	private static Searcher instance_ = null;
     private List<Track> results;
 
-    public Searcher() {
+    protected Searcher() {
         results = new ArrayList<Track>();
+    }
+    
+    public static Searcher getInstance_() {
+    	if (instance_ == null)
+    		instance_ = new Searcher();
+    	return instance_;
     }
 
     /**
@@ -32,16 +40,20 @@ public class Searcher {
     public void search(String terms) {
 
         List<Track> results = new ArrayList<Track>();
-
-        for (ServiceConsumer consumer:
-                ServiceRegister.getInstance_().getServiceConsumers()) {
-            try {
-            	results.addAll(consumer.search(terms));    	
-            } catch (ApiException e) {
-            	//TODO
-            }
-            
+        try {
+        	results = MustreamApi.getInstance_().search(terms);
+        } catch (ApiException e){
+        	//TODO
         }
+//        for (ServiceConsumer consumer:
+//                ServiceRegister.getInstance_().getServiceConsumers()) {
+//            try {
+//            	results.addAll(consumer.search(terms));    	
+//            } catch (ApiException e) {
+//            	//TODO
+//            }
+//            
+//        }
         this.results = results;
     }
 

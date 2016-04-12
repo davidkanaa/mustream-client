@@ -5,7 +5,7 @@ import com.mustream.app.client.Pair;
 import java.util.Map;
 import java.util.List;
 
-@javax.annotation.Generated(value = "class com.mustream.app.codegen.languages.JavaClientCodegen", date = "2016-04-09T16:24:49.323Z")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-04-10T19:06:00.048Z")
 public class OAuth implements Authentication {
   private String accessToken;
 

@@ -1,9 +1,9 @@
 package com.mustream.app.models.entities;
 
 import java.util.Objects;
-//import com.fasterxml.jackson.annotation.JsonProperty;
-//import io.swagger.annotations.ApiModel;
-//import io.swagger.annotations.ApiModelProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 
 
@@ -11,40 +11,42 @@ import java.util.Objects;
  * Mustream streaming service object : contains information about an Streaming Service integrated in the Mustream Platform.
  **/
 
-//@ApiModel(description = "Mustream streaming service object : contains information about an Streaming Service integrated in the Mustream Platform.")
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-04-09T16:24:49.323Z")
+@ApiModel(description = "Mustream streaming service object : contains information about an Streaming Service integrated in the Mustream Platform.")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-04-10T19:06:00.048Z")
 public class StreamingService   {
   
-  private Long id = null;
+  private String id = null;
   private String name = null;
 
   
   /**
+   * The MuStream ID for the streaming service.
    **/
-  public StreamingService id(Long id) {
+  public StreamingService id(String id) {
     this.id = id;
     return this;
   }
   
- // @ApiModelProperty(example = "null", value = "")
-//  @JsonProperty("id")
-  public Long getId() {
+  @ApiModelProperty(example = "null", value = "The MuStream ID for the streaming service.")
+  @JsonProperty("id")
+  public String getId() {
     return id;
   }
-  public void setId(Long id) {
+  public void setId(String id) {
     this.id = id;
   }
 
 
   /**
+   * The name of the streaming service.
    **/
   public StreamingService name(String name) {
     this.name = name;
     return this;
   }
   
-//  @ApiModelProperty(example = "null", value = "")
-//  @JsonProperty("name")
+  @ApiModelProperty(example = "null", value = "The name of the streaming service.")
+  @JsonProperty("name")
   public String getName() {
     return name;
   }

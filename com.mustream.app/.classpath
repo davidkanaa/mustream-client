@@ -12,6 +12,9 @@
 	<classpathentry kind="lib" path="WEB-INF/jackson-datatype-joda-2.0.4.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/javax.ws.rs-api-2.0.1.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/jackson-jaxrs-json-provider-2.0.4.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/swagger-annotations-1.5.0.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/migbase64-2.2.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/jsr311-api-1.1.1.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/jersey-client-1.18.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

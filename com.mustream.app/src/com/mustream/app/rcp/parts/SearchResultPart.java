@@ -1,20 +1,31 @@
 package com.mustream.app.rcp.parts;
 
 import com.mustream.app.models.entities.Item;
+import com.mustream.app.models.entities.Playlist;
 import com.mustream.app.models.entities.Track;
 import com.mustream.app.models.modules.PlaylistManager.PlaylistManager;
 import com.mustream.app.models.modules.searcher.Searcher;
 
-import javax.annotation.PostConstruct;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.annotation.PostConstruct;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
+import org.eclipse.jface.dialogs.IInputValidator;
+import org.eclipse.jface.dialogs.InputDialog;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.*;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Table;
@@ -28,14 +39,16 @@ import org.eclipse.swt.widgets.Text;
  *         the song you selected from your search
  */
 public class SearchResultPart {
-	private Searcher searcher;
+	private Searcher searcher = null;
 	private Table searchTable;
 	private String songString;
 	private Text searchText;
+	//private PlaylistManager playlistManager = null;//TODO testing
 
 	@PostConstruct
 	public void createControls(Composite parent) {
-
+		//playlistManager = PlaylistManager.getInstance_(); //TODO testing
+		searcher = Searcher.getInstance_();
 		// creation of the layout parent with 3 widget in each line
 		parent.setLayout(new GridLayout(3, false));
 
@@ -49,6 +62,7 @@ public class SearchResultPart {
 		// text has an input
 		Button searchButton = new Button(parent, SWT.PUSH);
 		searchButton.setText("Search");
+		
 		// position of the button search
 		searchButton.setLayoutData(new GridData(SWT.LEAD, SWT.FILL, false, false, 1, 1));
 		searchButton.addSelectionListener(new SelectionAdapter() {
@@ -57,17 +71,17 @@ public class SearchResultPart {
 				if (terms.isEmpty()) {
 					return;
 				}
-				getSearcher().search(terms);
+				searcher.search(terms);
 
 				getSearchTable().removeAll();
-				for (Item result : getSearcher().getResults()) {
+				for (Item result : searcher.getResults()) {
 					TableItem item = new TableItem(getSearchTable(), 0);
 					item.setText(0, ((Track) result).getName());
 					item.setText(1, ((Track) result).getAlbum());
 					item.setText(2, ((Track) result).getArtists().toString());
 				}
-				for (int i = 0; i < 3; i++) {
-					getSearchTable().getColumn(i).pack();
+				for (int i = 0; i < searchTable.getColumnCount(); i++) {
+					searchTable.getColumn(i).pack();
 				}
 				getSearchTable().layout(true);
 			}
@@ -78,21 +92,41 @@ public class SearchResultPart {
 		button2.setLayoutData(new GridData(SWT.RIGHT, SWT.FILL, false, false));
 		button2.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				(PlaylistManager.getInstance_()).addTrack(
-						(Track) SearchResultPart.this.searcher.getResults().get(searchTable.getSelectionIndex()),
-						"Playlist");
-				PlaylistManager.getInstance_().savePlaylists();
-
-			}
+				List<Track> selectedTracks = new ArrayList<Track>();
+				List<Track> results = searcher.getResults();
+				for (int i : searchTable.getSelectionIndices())
+				{
+					Track tmp = results.get(i);
+					selectedTracks.add(tmp);
+				}
+				//TODO testing
+				Menu playlistMenu = new Menu(button2);
+				for (Playlist playlist : PlaylistManager.getInstance_().getPlaylists()){
+					MenuItem item = new MenuItem(playlistMenu, SWT.NONE);
+					item.setText(playlist.getName());
+					item.addSelectionListener(new SelectionListener() {
+						public void widgetSelected(SelectionEvent e) {
+							PlaylistManager.getInstance_().addTracks(selectedTracks, playlist.getName());
+						}
+						public void widgetDefaultSelected(SelectionEvent e) {
+							widgetSelected(e);
+						}
+					});
+				}
+			}		
+//					public void widgetDefaultSelected(SelectionEvent e) {
+//						widgetSelected(e);
+//					}
+//			}
 		});
-		this.searcher = new Searcher();
-
+		
+		
 		this.searchTable = new Table(parent, SWT.BORDER | SWT.FULL_SELECTION | SWT.MULTI);
 		this.searchTable.setHeaderVisible(true);
 		this.searchTable.setLinesVisible(true);
 		this.searchTable.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 3, 2));
 
-		popupMenuSearch();
+		popupMenuSearch(parent);
 
 		String[] titles = { "Title", "Album", "Artist(s)" };
 		for (int i = 0; i < titles.length; i++) {
@@ -129,7 +163,8 @@ public class SearchResultPart {
 	// this is the creation of the popup menu for the search part
 	// you have option to play the track, add them to playlist or queue
 	// to create playlist
-	private void popupMenuSearch() {
+	private void popupMenuSearch(Composite parent) {
+		//TODO
 		// creation of a popup menu when you make a right click on the table
 		Menu popupMenu = new Menu(searchTable);
 
@@ -138,43 +173,29 @@ public class SearchResultPart {
 
 		MenuItem addTrackPlaylist = new MenuItem(popupMenu, SWT.CASCADE);
 		addTrackPlaylist.setText("Add track to playlist");
+		
+		Menu newMenu = new Menu(popupMenu);
+		addTrackPlaylist.setMenu(newMenu);
+		PlaylistPart.getInstance_().listPlaylists(newMenu, addTrackPlaylist);
 
 		MenuItem addToQueue = new MenuItem(popupMenu, SWT.NONE);
 		addToQueue.setText("Add to queue");
 
-		Menu newMenu = new Menu(popupMenu);
-		addTrackPlaylist.setMenu(newMenu);
-
-		MenuItem showListPlaylist = new MenuItem(newMenu, SWT.CASCADE);
-		showListPlaylist.setText("Show list of playlist");
-
 		MenuItem createNewPlaylist = new MenuItem(newMenu, SWT.NONE);
 		createNewPlaylist.setText("Create new playlist");
-		createNewPlaylist.addSelectionListener(new SelectionListener() {
+		
+		createNewPlaylist.addSelectionListener(new SelectionAdapter() {
+		      public void widgetSelected(SelectionEvent event) {
+		    	  //PlaylistPart.getInstance_().popupDialogPlaylist(); //TODO
+		      }
+		    });
 
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				// TODO Auto-generated method stub
 
-				PlaylistPart playlistpart = new PlaylistPart();
-				playlistpart.popupDialogPlaylist();
-				System.out.println("click");
-
-			}
-
-			@Override
-			public void widgetDefaultSelected(SelectionEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-
-		});
-
-		Menu newMenu_2 = new Menu(popupMenu);
-		showListPlaylist.setMenu(newMenu_2);
-
-		MenuItem newM = new MenuItem(newMenu_2, SWT.NONE);
-		newM.setText("new");
+//		Menu newMenu_2 = new Menu(popupMenu);
+//		showListPlaylist.setMenu(newMenu_2);
+//
+//		MenuItem newM = new MenuItem(newMenu_2, SWT.NONE);
+//		newM.setText("new");
 
 		searchTable.setMenu(popupMenu);
 	}

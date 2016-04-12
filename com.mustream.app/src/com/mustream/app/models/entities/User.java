@@ -1,9 +1,9 @@
 package com.mustream.app.models.entities;
 
 import java.util.Objects;
-//import com.fasterxml.jackson.annotation.JsonProperty;
-//import io.swagger.annotations.ApiModel;
-//import io.swagger.annotations.ApiModelProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 
 
@@ -11,40 +11,42 @@ import java.util.Objects;
  * Mustream user object : contains user profile information.
  **/
 
-//@ApiModel(description = "Mustream user object : contains user profile information.")
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-04-09T16:24:49.323Z")
+@ApiModel(description = "Mustream user object : contains user profile information.")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-04-10T19:06:00.048Z")
 public class User   {
-  
-  private Long id = null;
-  private String username = null;
+  //TODO Changed to protected for CurrentUser akcw
+  protected String id = null;
+  protected String username = null;
 
   
   /**
+   * The MuStream USER ID for the user.
    **/
-  public User id(Long id) {
+  public User id(String id) {
     this.id = id;
     return this;
   }
   
-//  @ApiModelProperty(example = "null", value = "")
-//  @JsonProperty("id")
-  public Long getId() {
+  @ApiModelProperty(example = "null", value = "The MuStream USER ID for the user.")
+  @JsonProperty("id")
+  public String getId() {
     return id;
   }
-  public void setId(Long id) {
+  public void setId(String id) {
     this.id = id;
   }
 
 
   /**
+   * The username of the user.
    **/
   public User username(String username) {
     this.username = username;
     return this;
   }
   
-//  @ApiModelProperty(example = "null", value = "")
-//  @JsonProperty("username")
+  @ApiModelProperty(example = "null", value = "The username of the user.")
+  @JsonProperty("username")
   public String getUsername() {
     return username;
   }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.datatype.joda.*;
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
+
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.GenericType;
@@ -40,10 +41,11 @@ import com.mustream.app.client.auth.HttpBasicAuth;
 import com.mustream.app.client.auth.ApiKeyAuth;
 import com.mustream.app.client.auth.OAuth;
 
-@javax.annotation.Generated(value = "class com.mustream.app.codegen.languages.JavaClientCodegen", date = "2016-04-09T16:24:49.323Z")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-04-10T19:06:00.048Z")
 public class ApiClient {
   private Map<String, String> defaultHeaderMap = new HashMap<String, String>();
-  private String basePath = "http://localhost/v1";
+  //private String basePath = "http://localhost/v1";
+  private String basePath = "http://localhost:8080/v1";
   private boolean debugging = false;
   private int connectionTimeout = 0;
 
@@ -106,7 +108,6 @@ public class ApiClient {
     this.httpClient = client;
     return this;
   }
-  //TODO Deal with this import issue
 
   /**
    * Returns the current object mapper used for JSON serialization/deserialization.

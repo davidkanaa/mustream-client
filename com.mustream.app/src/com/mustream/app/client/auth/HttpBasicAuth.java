@@ -2,14 +2,14 @@ package com.mustream.app.client.auth;
 
 import com.mustream.app.client.Pair;
 
-//import com.migcomponents.migbase64.Base64;
+import com.migcomponents.migbase64.Base64;
 
 import java.util.Map;
 import java.util.List;
 
 import java.io.UnsupportedEncodingException;
 
-@javax.annotation.Generated(value = "class com.mustream.app.codegen.languages.JavaClientCodegen", date = "2016-04-09T16:24:49.323Z")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-04-10T19:06:00.048Z")
 public class HttpBasicAuth implements Authentication {
   private String username;
   private String password;
@@ -36,11 +36,10 @@ public class HttpBasicAuth implements Authentication {
       return;
     }
     String str = (username == null ? "" : username) + ":" + (password == null ? "" : password);
-    headerParams.put("Authorization", "Basic " + str); //TODO encode
-//	try {
-//      headerParams.put("Authorization", "Basic " + Base64.encodeToString(str.getBytes("UTF-8"), false)); //TODO encode      
-// 	} catch (UnsupportedEncodingException e) {
-//	throw new RuntimeException(e);
-//	}
+    try {
+      headerParams.put("Authorization", "Basic " + Base64.encodeToString(str.getBytes("UTF-8"), false));
+    } catch (UnsupportedEncodingException e) {
+      throw new RuntimeException(e);
+    }
   }
 }

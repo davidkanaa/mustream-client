@@ -7,11 +7,11 @@ import com.mustream.app.client.ApiClient;
 import com.mustream.app.client.Configuration;
 import com.mustream.app.client.Pair;
 
-import com.mustream.app.models.entities.AuthData;
-import com.mustream.app.models.entities.Error;
-import com.mustream.app.models.entities.Tracks;
+import com.mustream.app.models.entities.Credentials;
+//import com.mustream.app.models.entities.Error;
 import com.mustream.app.models.entities.Playlist;
 import com.mustream.app.models.entities.User;
+import com.mustream.app.models.modules.PlaylistManager.PlaylistManager;
 //import com.mustream.app.models.entities.Item;
 import com.mustream.app.models.entities.Track;
 
@@ -22,15 +22,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "class com.mustream.app.codegen.languages.JavaClientCodegen", date = "2016-04-09T16:24:49.323Z")
-public class DefaultApi implements ServiceConsumer { //TODO added implements akcw
-  private ApiClient apiClient;
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-04-10T19:06:00.048Z")
+public class MustreamApi implements ServiceConsumer {
+  //TODO Made Api a singleton
+	private static MustreamApi instance_ = null;
+	private ApiClient apiClient;
 
-  public DefaultApi() {
+  protected MustreamApi() {
     this(Configuration.getDefaultApiClient());
   }
+  
+  public static MustreamApi getInstance_() {
+	  if (instance_ == null){
+          instance_ = new MustreamApi();
+      }
+      return instance_;
+  }
 
-  public DefaultApi(ApiClient apiClient) {
+  public MustreamApi(ApiClient apiClient) {
     this.apiClient = apiClient;
   }
 
@@ -46,21 +55,21 @@ public class DefaultApi implements ServiceConsumer { //TODO added implements akc
    * Authenticate a user against the data base of user accounts.
    * Authenticates and returns a token.
    * @param clientId Client Identifier. (required)
-   * @param authData Authentication information (required)
+   * @param credentials Authentication information. (required)
    * @return String
    * @throws ApiException if fails to make API call
    */
-  public String accountsAuthenticatePost(String clientId, AuthData authData) throws ApiException {
-    Object localVarPostBody = authData;
+  public String accountsAuthenticatePost(String clientId, Credentials credentials) throws ApiException {
+    Object localVarPostBody = credentials;
     
     // verify the required parameter 'clientId' is set
     if (clientId == null) {
       throw new ApiException(400, "Missing the required parameter 'clientId' when calling accountsAuthenticatePost");
     }
     
-    // verify the required parameter 'authData' is set
-    if (authData == null) {
-      throw new ApiException(400, "Missing the required parameter 'authData' when calling accountsAuthenticatePost");
+    // verify the required parameter 'credentials' is set
+    if (credentials == null) {
+      throw new ApiException(400, "Missing the required parameter 'credentials' when calling accountsAuthenticatePost");
     }
     
     // create path and map variables
@@ -96,27 +105,29 @@ public class DefaultApi implements ServiceConsumer { //TODO added implements akc
    * @param accessToken Authentication token. (required)
    * @param userId Identifier of the user. (required)
    * @param playlistId Identifier of the user&#39;s playlist. (required)
-   * @param tracks An array of track information objects. (optional)
-   * @param streamerId Identifier of the streaming service provider where the track is originally from. (optional)
-   * @param trackId Identifier of the track (optional)
+   * @param uris The Mustream Resource Identifier or URI for the tracks to add to the playlist. (optional)
+   * @param uris2 The Mustream Resource Identifier or URI for the tracks to add to the playlist. (optional)
    * @throws ApiException if fails to make API call
+   *
    */
-  public void addTracktoPlaylist(String accessToken, Long userId, Long playlistId, List<Tracks> tracks, Long streamerId, Long trackId) throws ApiException {
-    Object localVarPostBody = tracks;
+  //TODO remove uris2
+  public void addTrackstoPlaylist(String accessToken, String userId, String playlistId, List<String> uris, List<String> uris2) throws ApiException {
+    // Object localVarPostBody = uris; //TODO UNCOMMENT
     
     // verify the required parameter 'accessToken' is set
     if (accessToken == null) {
-      throw new ApiException(400, "Missing the required parameter 'accessToken' when calling addTracktoPlaylist");
+      throw new ApiException(400, "Missing the required parameter 'accessToken' when calling addTrackstoPlaylist");
     }
     
     // verify the required parameter 'userId' is set
     if (userId == null) {
-      throw new ApiException(400, "Missing the required parameter 'userId' when calling addTracktoPlaylist");
+      throw new ApiException(400, "Missing the required parameter 'userId' when calling addTrackstoPlaylist");
     }
-    
+    /*
+     * //TODO UNCOMMENT
     // verify the required parameter 'playlistId' is set
     if (playlistId == null) {
-      throw new ApiException(400, "Missing the required parameter 'playlistId' when calling addTracktoPlaylist");
+      throw new ApiException(400, "Missing the required parameter 'playlistId' when calling addTrackstoPlaylist");
     }
     
     // create path and map variables
@@ -129,8 +140,7 @@ public class DefaultApi implements ServiceConsumer { //TODO added implements akc
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "streamer_id", streamerId));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "track_id", trackId));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("multi", "uris", uris2));
 
     if (accessToken != null)
       localVarHeaderParams.put("access_token", apiClient.parameterToString(accessToken));
@@ -150,17 +160,19 @@ public class DefaultApi implements ServiceConsumer { //TODO added implements akc
 
 
     apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
+  */
   }
   /**
    * Create a playlist for a Mustream user
    * Returns a reference to the freshly created &#x60;&#x60;Playlist&#x60;&#x60; object.
    * @param accessToken Authentication token (required)
    * @param userId identifier of the user (required)
+   * @param name The name of the new playlist. (required)
    * @return Playlist
    * @throws ApiException if fails to make API call
    */
-  public Playlist createPlaylist(String accessToken, Long userId) throws ApiException {
-    Object localVarPostBody = null;
+  public Playlist createPlaylist(String accessToken, String userId, String name) throws ApiException {
+   Object localVarPostBody = name;
     
     // verify the required parameter 'accessToken' is set
     if (accessToken == null) {
@@ -170,6 +182,11 @@ public class DefaultApi implements ServiceConsumer { //TODO added implements akc
     // verify the required parameter 'userId' is set
     if (userId == null) {
       throw new ApiException(400, "Missing the required parameter 'userId' when calling createPlaylist");
+    }
+    
+    // verify the required parameter 'name' is set
+    if (name == null) {
+      throw new ApiException(400, "Missing the required parameter 'name' when calling createPlaylist");
     }
     
     // create path and map variables
@@ -209,8 +226,8 @@ public class DefaultApi implements ServiceConsumer { //TODO added implements akc
    * @param playlistId identifier of the user&#39;s playlist (required)
    * @throws ApiException if fails to make API call
    */
-  public void deletePlaylist(String accessToken, Long userId, Long playlistId) throws ApiException {
-    Object localVarPostBody = null;
+  public void deletePlaylist(String accessToken, String userId, String playlistId) throws ApiException {
+    // Object localVarPostBody = null;//TODO UNCOMMENT
     
     // verify the required parameter 'accessToken' is set
     if (accessToken == null) {
@@ -221,7 +238,7 @@ public class DefaultApi implements ServiceConsumer { //TODO added implements akc
     if (userId == null) {
       throw new ApiException(400, "Missing the required parameter 'userId' when calling deletePlaylist");
     }
-    
+    /* //TODO UNCOMMENT
     // verify the required parameter 'playlistId' is set
     if (playlistId == null) {
       throw new ApiException(400, "Missing the required parameter 'playlistId' when calling deletePlaylist");
@@ -256,16 +273,17 @@ public class DefaultApi implements ServiceConsumer { //TODO added implements akc
 
 
     apiClient.invokeAPI(localVarPath, "DELETE", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
+  */
   }
   /**
-   * Get a list public playlists of a Mustream user.
+   * Get the playlists of a Mustream user.
    * Gets &#x60;Playlist&#x60; objects.
    * @param accessToken Authentication token (required)
    * @param userId Identifier of the user (required)
    * @return List<Playlist>
    * @throws ApiException if fails to make API call
    */
-  public List<Playlist> getAllPlaylists(String accessToken, Long userId) throws ApiException {
+  public List<Playlist> getAllPlaylists(String accessToken, String userId) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'accessToken' is set
@@ -316,54 +334,56 @@ public class DefaultApi implements ServiceConsumer { //TODO added implements akc
    * @return Playlist
    * @throws ApiException if fails to make API call
    */
-  public Playlist getPlaylist(String accessToken, Long userId, Long playlistId) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'accessToken' is set
-    if (accessToken == null) {
-      throw new ApiException(400, "Missing the required parameter 'accessToken' when calling getPlaylist");
-    }
-    
-    // verify the required parameter 'userId' is set
-    if (userId == null) {
-      throw new ApiException(400, "Missing the required parameter 'userId' when calling getPlaylist");
-    }
-    
-    // verify the required parameter 'playlistId' is set
-    if (playlistId == null) {
-      throw new ApiException(400, "Missing the required parameter 'playlistId' when calling getPlaylist");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/users/{user_id}/playlists/{playlist_id}".replaceAll("\\{format\\}","json")
-      .replaceAll("\\{" + "user_id" + "\\}", apiClient.escapeString(userId.toString()))
-      .replaceAll("\\{" + "playlist_id" + "\\}", apiClient.escapeString(playlistId.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    if (accessToken != null)
-      localVarHeaderParams.put("access_token", apiClient.parameterToString(accessToken));
-
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] {  };
-
-    GenericType<Playlist> localVarReturnType = new GenericType<Playlist>() {};
-    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
+  //TODO not needed so far
+//  public Playlist getPlaylist(String accessToken, String userId, String playlistId) throws ApiException {
+//    Object localVarPostBody = null;
+//    
+//    // verify the required parameter 'accessToken' is set
+//    if (accessToken == null) {
+//      throw new ApiException(400, "Missing the required parameter 'accessToken' when calling getPlaylist");
+//    }
+//    
+//    // verify the required parameter 'userId' is set
+//    if (userId == null) {
+//      throw new ApiException(400, "Missing the required parameter 'userId' when calling getPlaylist");
+//    }
+//    
+//    // verify the required parameter 'playlistId' is set
+//    if (playlistId == null) {
+//      throw new ApiException(400, "Missing the required parameter 'playlistId' when calling getPlaylist");
+//    }
+//    
+//    // create path and map variables
+//    String localVarPath = "/users/{user_id}/playlists/{playlist_id}".replaceAll("\\{format\\}","json")
+//      .replaceAll("\\{" + "user_id" + "\\}", apiClient.escapeString(userId.toString()))
+//      .replaceAll("\\{" + "playlist_id" + "\\}", apiClient.escapeString(playlistId.toString()));
+//
+//    // query params
+//    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+//    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+//    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+//
+//
+//    if (accessToken != null)
+//      localVarHeaderParams.put("access_token", apiClient.parameterToString(accessToken));
+//
+//    
+//    final String[] localVarAccepts = {
+//      "application/json"
+//    };
+//    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+//
+//    final String[] localVarContentTypes = {
+//      "application/json"
+//    };
+//    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+//
+//    String[] localVarAuthNames = new String[] {  };
+//
+//    GenericType<Playlist> localVarReturnType = new GenericType<Playlist>() {};
+//    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+//      }
+  
   /**
    * Get public profile information about a Mustream user.
    * Gets the &#x60;User&#x60; objects with **user_id** as identifier value.
@@ -371,7 +391,7 @@ public class DefaultApi implements ServiceConsumer { //TODO added implements akc
    * @return User
    * @throws ApiException if fails to make API call
    */
-  public User getUser(Long userId) throws ApiException {
+  public User getUser(String userId) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'userId' is set
@@ -455,27 +475,26 @@ public class DefaultApi implements ServiceConsumer { //TODO added implements akc
    * @param accessToken Authentication token (required)
    * @param userId Identifier of the user (required)
    * @param playlistId Identifier of the user&#39;s playlist (required)
-   * @param tracks An array of track information objects. (optional)
-   * @param streamerId Identifier of the streaming service provider where the track is originally from (optional)
-   * @param trackId Identifier of the track (optional)
+   * @param uris The Mustream Resource Identifier or URI for the tracks to remove to the playlist. (optional)
+   * @param uris2 The Mustream Resource Identifier or URI for the tracks to remove to the playlist. (optional)
    * @throws ApiException if fails to make API call
    */
-  public void removeTrackfromPlaylist(String accessToken, Long userId, Long playlistId, List<Tracks> tracks, Long streamerId, Long trackId) throws ApiException {
-    Object localVarPostBody = tracks;
+  public void removeTracksfromPlaylist(String accessToken, String userId, String playlistId, List<String> uris, List<String> uris2) throws ApiException {
+    Object localVarPostBody = uris;
     
     // verify the required parameter 'accessToken' is set
     if (accessToken == null) {
-      throw new ApiException(400, "Missing the required parameter 'accessToken' when calling removeTrackfromPlaylist");
+      throw new ApiException(400, "Missing the required parameter 'accessToken' when calling removeTracksfromPlaylist");
     }
     
     // verify the required parameter 'userId' is set
     if (userId == null) {
-      throw new ApiException(400, "Missing the required parameter 'userId' when calling removeTrackfromPlaylist");
+      throw new ApiException(400, "Missing the required parameter 'userId' when calling removeTracksfromPlaylist");
     }
     
     // verify the required parameter 'playlistId' is set
     if (playlistId == null) {
-      throw new ApiException(400, "Missing the required parameter 'playlistId' when calling removeTrackfromPlaylist");
+      throw new ApiException(400, "Missing the required parameter 'playlistId' when calling removeTracksfromPlaylist");
     }
     
     // create path and map variables
@@ -488,8 +507,7 @@ public class DefaultApi implements ServiceConsumer { //TODO added implements akc
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "streamer_id", streamerId));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "track_id", trackId));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("multi", "uris", uris2));
 
     if (accessToken != null)
       localVarHeaderParams.put("access_token", apiClient.parameterToString(accessToken));
@@ -517,14 +535,13 @@ public class DefaultApi implements ServiceConsumer { //TODO added implements akc
    * @return List<Track>
    * @throws ApiException if fails to make API call
    */
-public List<Track> search(String query) throws ApiException { //TODO modify
+  public List<Track> search(String query) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'query' is set
-    //TODO exception
-//    if (query == null) {
-//      throw new ApiException(400, "Missing the required parameter 'query' when calling search");
-//    }
+    if (query == null) {
+      throw new ApiException(400, "Missing the required parameter 'query' when calling search");
+    }
     
     // create path and map variables
     String localVarPath = "/search".replaceAll("\\{format\\}","json");
@@ -557,14 +574,13 @@ public List<Track> search(String query) throws ApiException { //TODO modify
    * Rename user&#39;s playlist
    * 
    * @param accessToken Authentication token (required)
-   * @param userId identifier of the user (required)
-   * @param playlistId identifier of the user&#39;s playlist (required)
-   * @param newName new name of the playlist (optional)
-   * @return Playlist
+   * @param userId Identifier of the user (required)
+   * @param playlistId Identifier of the user&#39;s playlist (required)
+   * @param name The new name of the playlist. (required)
    * @throws ApiException if fails to make API call
    */
-  public Playlist updatePlaylist(String accessToken, Long userId, Long playlistId, String newName) throws ApiException {
-    Object localVarPostBody = null;
+  public void updatePlaylist(String accessToken, String userId, String playlistId, String name) throws ApiException {
+   // Object localVarPostBody = name;// TODO UNCOMMENT
     
     // verify the required parameter 'accessToken' is set
     if (accessToken == null) {
@@ -576,9 +592,16 @@ public List<Track> search(String query) throws ApiException { //TODO modify
       throw new ApiException(400, "Missing the required parameter 'userId' when calling updatePlaylist");
     }
     
+    /* TODO UNCOMMENT THIS SECTION
+     * 
     // verify the required parameter 'playlistId' is set
     if (playlistId == null) {
       throw new ApiException(400, "Missing the required parameter 'playlistId' when calling updatePlaylist");
+    }
+    
+    // verify the required parameter 'name' is set
+    if (name == null) {
+      throw new ApiException(400, "Missing the required parameter 'name' when calling updatePlaylist");
     }
     
     // create path and map variables
@@ -591,7 +614,6 @@ public List<Track> search(String query) throws ApiException { //TODO modify
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "new_name", newName));
 
     if (accessToken != null)
       localVarHeaderParams.put("access_token", apiClient.parameterToString(accessToken));
@@ -609,7 +631,8 @@ public List<Track> search(String query) throws ApiException { //TODO modify
 
     String[] localVarAuthNames = new String[] {  };
 
-    GenericType<Playlist> localVarReturnType = new GenericType<Playlist>() {};
-    return apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
+
+    apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
+  */
+  }
 }
