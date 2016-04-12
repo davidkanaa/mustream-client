@@ -44,7 +44,6 @@ public class PlaylistPart {
 	private List<Track> playlistTracks;
 	private List<Track> selectedTracks = new ArrayList<Track>();
 	private String playlistName;
-	private String dropdownPlaylist;
 
 	public static PlaylistPart getInstance_(){
 		if(instance_ == null ) 
