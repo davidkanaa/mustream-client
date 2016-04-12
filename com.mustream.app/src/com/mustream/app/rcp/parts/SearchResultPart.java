@@ -50,8 +50,10 @@ public class SearchResultPart {
 			new SearchResultPart();
 		return instance_;
 	}
+	
 	@PostConstruct
 	public void createControls(Composite parent) {
+		
 		searcher = Searcher.getInstance_();
 		// creation of the layout parent with 3 widget in each line
 		parent.setLayout(new GridLayout(3, false));
@@ -67,7 +69,7 @@ public class SearchResultPart {
 		Button searchButton = new Button(parent, SWT.PUSH);
 		searchButton.setText("Search");
 		
-		populateTable();
+		//populateTable();
 		
 		// position of the button search
 		searchButton.setLayoutData(new GridData(SWT.LEAD, SWT.FILL, false, false, 1, 1));
@@ -179,6 +181,7 @@ public class SearchResultPart {
 			getSearchTable().layout(true);
 		}
 	}
+	
 	public Text getSearchText() {
 		return searchText;
 	}
@@ -209,21 +212,22 @@ public class SearchResultPart {
 		MenuItem addToQueue = new MenuItem(popupMenu, SWT.NONE);
 		addToQueue.setText("Add to queue");
 		
-/*
+
 		MenuItem createNewPlaylist = new MenuItem(newMenu, SWT.NONE);
 		createNewPlaylist.setText("Create new playlist");
 		
 		createNewPlaylist.addSelectionListener(new SelectionAdapter() {
 		      public void widgetSelected(SelectionEvent event) {
-		    	  //PlaylistPart.getInstance_().popupDialogPlaylist(); //TODO
+		    	  PlaylistPart.getInstance_().popupDialogPlaylist();
 		      }
 		    });
-		Menu newMenu_2 = new Menu(popupMenu);
-		showListPlaylist.setMenu(newMenu_2);
+		
+//		Menu newMenu_2 = new Menu(popupMenu);
+//		showListPlaylist.setMenu(newMenu_2);
+//
+//		MenuItem newM = new MenuItem(newMenu_2, SWT.NONE);
+//		newM.setText("new");
 
-		MenuItem newM = new MenuItem(newMenu_2, SWT.NONE);
-		newM.setText("new");
-*/
 		searchTable.setMenu(popupMenu);
 	}
 }

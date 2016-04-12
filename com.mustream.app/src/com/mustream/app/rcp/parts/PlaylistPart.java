@@ -44,11 +44,8 @@ public class PlaylistPart {
 	private List<Track> playlistTracks;
 	private List<Track> selectedTracks = new ArrayList<Track>();
 	private String playlistName;
-//	private PlaylistManager playlistman = null; // 
+	private String dropdownPlaylist;
 
-//	protected PlaylistPart(){
-//		
-//	}
 	public static PlaylistPart getInstance_(){
 		if(instance_ == null ) 
 			instance_ = new PlaylistPart();
@@ -70,26 +67,18 @@ public class PlaylistPart {
 				GridData gd = new GridData();
 				gd.widthHint = 150;
 				gd.verticalIndent= 200 ;
-				
-		//Create a text entry for users to enter to playlist name
-//		Text newPlaylistName = new Text(parent, SWT.BORDER);
-//		newPlaylistName.setMessage("New playlist name...");
-		//newPlaylistName.setLayoutData(gd);
+		
 		
 		// create button to create playlist in playlist table
 		Button createplaylistBtn = new Button(parent, SWT.NONE);
 		createplaylistBtn.setText("Create playlist");
-		
-		
 		createplaylistBtn.setLayoutData(gd);
 		createplaylistBtn.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				//TODO UNCOMMENT ONCE ISSUE WITH POP-UP FIXED
-				//popupDialogPlaylist();
-//				String name = newPlaylistName.getText();
-//				PlaylistManager.getInstance_().createPlaylist(name);
-//				updatePlaylistTable();
+				String temp = popupDialogPlaylist();
+				PlaylistManager.getInstance_().createPlaylist(temp);
+				updatePlaylistTable();
 			}
 
 		});
@@ -111,7 +100,7 @@ public class PlaylistPart {
 		      public void widgetSelected(SelectionEvent e) {
 		    	  TableItem[] selectedPlaylist = playlistTable.getSelection();
 		    	  playlistName = selectedPlaylist[0].getText(0);
-		    	  updateTracksTable();
+		    	  updateTracksTable(playlistName);
 		        }
 		 });
 
@@ -127,18 +116,25 @@ public class PlaylistPart {
 		tracksTable.setLinesVisible(true);
 		popupMenuTracksTb();
 		
-		// Create the button to add a playlist to queue
-		Button addPlaylistToQueue = new Button(parent, SWT.NONE);
-		addPlaylistToQueue.setText("Add playlist to queue");
 		GridData gd_1 = new GridData();
 		gd_1.widthHint = 150;
-		addPlaylistToQueue.setLayoutData(gd_1);
-		addPlaylistToQueue.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				//TODO
-			}
-		});
+		
+		//Create a text entry for users to enter to playlist name
+//		Text playlistText = new Text(parent, SWT.NONE);
+//		playlistText.setMessage("Playlist name...");
+//		playlistText.setLayoutData(gd_1);
+		
+//		// Create the button to add a playlist to queue
+//		Button addPlaylistToQueue = new Button(parent, SWT.NONE);
+//		addPlaylistToQueue.setText("Add playlist to queue");
+//
+//		addPlaylistToQueue.setLayoutData(gd_1);
+//		addPlaylistToQueue.addSelectionListener(new SelectionAdapter() {
+//			@Override
+//			public void widgetSelected(SelectionEvent e) {
+//				//TODO
+//			}
+//		});
 
 		//Create button to delete playlist in playlist table
 		Button deletePlaylistBtn = new Button(parent, SWT.NONE);
@@ -153,28 +149,39 @@ public class PlaylistPart {
 
 		//Create button to delete track in tracks table on click
 		Button removeTrackFromPlaylist = new Button(parent, SWT.NONE);
-		removeTrackFromPlaylist.setText("Remove track from playlist");
+		removeTrackFromPlaylist.setText("Remove track(s)");
 		removeTrackFromPlaylist.setLayoutData(gd_1);
 		removeTrackFromPlaylist.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				getSelectedTracks();
 				PlaylistManager.getInstance_().removeTracks(selectedTracks, playlistName);
-				updateTracksTable();
+				updateTracksTable(playlistName);
 			}
 		});	
 		
-//		//Create button to add tracks to given playlist
-//		Button addTrackToPlaylist = new Button(parent, SWT.NONE);
-//		addTrackToPlaylist.setText("Add track(s) to playlist");
-//		addTrackToPlaylist.setLayoutData(gd_1);
-//		addTrackToPlaylist.addSelectionListener(new SelectionAdapter() {
-//		public void widgetSelected(SelectionEvent e) {
-//			getSelectedTracks();
-//			
-//			PlaylistPart.this.playlistman.addTracks(selectedTracks, playlistName);
-//						
-//			}
-//		});	
+		//Create button to add tracks to given playlist
+		Button addTrackToPlaylist = new Button(parent, SWT.NONE);
+		addTrackToPlaylist.setText("Add track(s) to playlist");
+		addTrackToPlaylist.setLayoutData(gd_1);
+		addTrackToPlaylist.addSelectionListener(new SelectionAdapter() {
+		public void widgetSelected(SelectionEvent e) {
+			getSelectedTracks();
+			PlaylistManager.getInstance_().addTracks(selectedTracks, "New playlist");				
+			}
+		});	
+		
+//		Create button to rename playlist
+		Button renamePlaylist = new Button(parent, SWT.NONE);
+		renamePlaylist.setText("Rename playlist");
+		renamePlaylist.setLayoutData(gd_1);
+		renamePlaylist.addSelectionListener(new SelectionAdapter() {
+		public void widgetSelected(SelectionEvent e) {
+			String temp = popupDialogPlaylist();
+			PlaylistManager.getInstance_().renamePlaylist(playlistName,temp);
+			updatePlaylistTable();
+			}
+		});
+		
 
 		String[] titles = { "Title", "Album", "Artist(s)" };
 		for (int i = 0; i < titles.length; i++) {
@@ -193,25 +200,14 @@ public class PlaylistPart {
 	}
 
 	// creation of the popup dialog when you click to create a new playlist
-	protected void popupDialogPlaylist() {
+	protected String popupDialogPlaylist() {
 		
 		JFrame frame = new JFrame();
-//		playlistName = JOptionPane.showInputDialog(frame, "Enter Playlist name:");
-//    	PlaylistManager.getInstance_().createPlaylist(playlistName);
-//		//System.out.println(playlistName);
+		String newPlaylist = JOptionPane.showInputDialog(frame, "Enter Playlist name:");
+    	return newPlaylist;
 		
-		//Object newPlaylist = new Object();
-		String newPlaylistName = (String)JOptionPane.showInputDialog(
-		                    frame,
-		                    "Create New Playlist",
-		                    "Input new playlist name");
-		PlaylistManager.getInstance_().createPlaylist(newPlaylistName);
-	
-	}
 
-//	public void showtable() {
-//		System.out.print(" display playlist ");
-//	}
+	}
 	
 	public void updatePlaylistTable() {
 		if (!PlaylistManager.getInstance_().noPlaylists()){
@@ -225,7 +221,7 @@ public class PlaylistPart {
 		
 	}
 	
-	private void updateTracksTable() {
+	private void updateTracksTable(String playlistName) {
 		tracksTable.removeAll();
 		playlistTracks = PlaylistManager.getInstance_().getPlaylistTracks(playlistName);
 		for (Track track : playlistTracks) {
@@ -262,7 +258,8 @@ public class PlaylistPart {
 
 		MenuItem addToPlaylist = new MenuItem(popupMenu, SWT.CASCADE);
 		addToPlaylist.setText("Add track(s) to playlist");
-//		addToPlaylist.addSelectionListener(listPlaylists(popupMenu)); //TODO not needed
+		
+
 		
 		listPlaylists(popupMenu, addToPlaylist);
 			
@@ -284,7 +281,7 @@ public class PlaylistPart {
 			public void widgetSelected(SelectionEvent e) {
 				getSelectedTracks();
 				PlaylistManager.getInstance_().removeTracks(selectedTracks, playlistName);
-				updateTracksTable();
+				updateTracksTable(playlistName);
 			}
 			public void widgetDefaultSelected(SelectionEvent e) {
 				widgetSelected(e);
@@ -314,15 +311,14 @@ public class PlaylistPart {
 			}
 		});
 
-		//TODO Problem with pop-up. 
-		/*
 		MenuItem createPlaylist = new MenuItem(popupMenu, SWT.NONE);
 		createPlaylist.setText("Create playlist");
 		createPlaylist.addSelectionListener(new SelectionListener() {
 
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				popupDialogPlaylist();
+				String temp = popupDialogPlaylist();
+				PlaylistManager.getInstance_().createPlaylist(temp);
 				updatePlaylistTable();
 			}
 
@@ -330,13 +326,15 @@ public class PlaylistPart {
 			public void widgetDefaultSelected(SelectionEvent e) {
 				widgetSelected(e);
 			}
-		}); */
-
+		}); 
+		
 		MenuItem renamePlaylist = new MenuItem(popupMenu, SWT.NONE);
 		renamePlaylist.setText("Rename playlist");
 		renamePlaylist.addSelectionListener(new SelectionListener() {
 			public void widgetSelected(SelectionEvent e) {
-				//TODO
+				String temp = popupDialogPlaylist();
+				PlaylistManager.getInstance_().renamePlaylist(playlistName,temp);
+				updatePlaylistTable();
 			}
 
 			public void widgetDefaultSelected(SelectionEvent e) {
@@ -389,8 +387,8 @@ public class PlaylistPart {
 				item.setText(playlist.getName());
 				item.addSelectionListener(new SelectionListener() {
 					public void widgetSelected(SelectionEvent e) {
-						PlaylistManager.getInstance_().addTracks(selectedTracks, playlist.getName());
-						updateTracksTable();
+						PlaylistManager.getInstance_().addTracks(selectedTracks, item.getText());
+						updateTracksTable(playlist.getName());
 					}
 					public void widgetDefaultSelected(SelectionEvent e) {
 						widgetSelected(e);
