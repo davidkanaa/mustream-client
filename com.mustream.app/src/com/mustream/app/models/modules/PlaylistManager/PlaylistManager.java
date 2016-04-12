@@ -109,15 +109,15 @@ public class PlaylistManager {
      */	
 	public void renamePlaylist(String oldName, String newName) {
 		if(playlistExists(oldName)) {
-			try {
-				MustreamApi.getInstance_().updatePlaylist(user.getAccessToken(), user.getId(), playlists.get(oldName).getId(), newName);
+//			try {
+//				MustreamApi.getInstance_().updatePlaylist(user.getAccessToken(), user.getId(), playlists.get(oldName).getId(), newName);
 				Playlist temp = playlists.get(oldName);
 				temp.setName(newName);
 				playlists.remove(oldName);
 				playlists.put(newName, temp);
-			} catch (ApiException e) {
-				//TODO
-			}
+//			} catch (ApiException e) {
+//				//TODO
+//			}
 			
 		}
 			

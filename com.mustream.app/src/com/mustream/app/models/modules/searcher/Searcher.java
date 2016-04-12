@@ -22,7 +22,8 @@ public class Searcher {
 
 	private static Searcher instance_ = null;
     private List<Track> results;
-
+    private boolean testing = true; //TODO use for development testing without server
+    
     protected Searcher() {
         results = new ArrayList<Track>();
     }
@@ -40,21 +41,23 @@ public class Searcher {
     public void search(String terms) {
 //TODO when user server
         List<Track> results = new ArrayList<Track>();
+        if (testing = true){
+          for (ServiceConsumer consumer:
+                  ServiceRegister.getInstance_().getServiceConsumers()) {
+              try {
+              	results.addAll(consumer.search(terms));    	
+              } catch (ApiException e) {
+              	//TODO
+              }
+              
+          }
+          }else{
         try {
         	results = MustreamApi.getInstance_().search(terms);
         } catch (ApiException e){
         	//TODO
         }
-        //TODO when using plugins
-//        for (ServiceConsumer consumer:
-//                ServiceRegister.getInstance_().getServiceConsumers()) {
-//            try {
-//            	results.addAll(consumer.search(terms));    	
-//            } catch (ApiException e) {
-//            	//TODO
-//            }
-//            
-//        }
+          }
         this.results = results;
     }
 
